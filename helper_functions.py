@@ -12,6 +12,16 @@ from sklearn.metrics import plot_confusion_matrix
 
 from xgboost import XGBClassifier
 
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+
+# Set matplotlib color cycle
+viridis_colors = plt.cm.viridis(np.linspace(0.1,0.9,6))
+mpl.rcParams['axes.prop_cycle'] = mpl.cycler(color=viridis_colors)
+
+# Set matplotlib color map
+mpl.rc('image', cmap='viridis')
+
 def onehot_encode_columns(data: 'DataFrame', col_names: list) -> 'DataFrame':
     '''One hot encode one or more columns
     
@@ -88,7 +98,6 @@ def display_confusion_matrix(model, class_names, x_test, y_test):
     
     normalized_cm = plot_confusion_matrix(model, x_test, y_test,
                                  display_labels=class_names,
-                                 cmap=plt.cm.Blues,
                                  normalize='true')
 
     normalized_cm.ax_.set_title("Normalized confusion matrix")
